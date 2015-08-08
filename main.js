@@ -1,13 +1,20 @@
 // Main DOM objects
 var obj = document.getElementById('gw');
 var regenLink = document.querySelector('.regen');
+var fbLink = document.querySelector('.fb');
 
 // Set body part IDs
 var gwAnimal = {
   bodies: ['gw-body'],
+  heads: ['gw-horsehead', 'gw-dinohead', 'gw-pighead', 'gw-penguinhead', 'gw-rhinohead'],
   feet: ['gw-flippers', 'gw-hooves', 'gw-dinofeet'],
-  tails: ['gw-curlytail', 'gw-dinotail'],
-  heads: ['gw-horsehead', 'gw-dinohead', 'gw-pighead', 'gw-penguinhead']
+  tails: ['gw-curlytail', 'gw-dinotail']
+}
+
+
+var gwNameParts = {
+  heads: ['Hors', 'Dino', 'Pi', 'Pen', 'Rhi'],
+  feet:['guin', 'se', 'saur']
 }
 
 // Convert part IDs into objects
@@ -39,11 +46,16 @@ var regen = function() {
     }
   }
 
-  // Randomly show parts
+  // Randomly show parts (and make name based on head + feet)
+  var gwName = "";
   for (var part in gwAnimal) {
     var i = Math.floor(Math.random()*gwAnimal[part].length);
     gwAnimal[part][i].style.display = "block";
+    if (part == "heads" || part == "feet") {
+      gwName += gwNameParts[part][i];
+    }
   }
+  document.getElementById("gwName").innerHTML = gwName;
 
   // Colour body parts
   var cBase = Math.random()*16777215;
@@ -67,6 +79,13 @@ var start = function() {
   setTimeout(regen, 400);
 }
 
+var share = function() {
+  var URL = "http://www.facebook.com/sharer/sharer.php?u=";
+  URL += window.location.href;
+  window.open(URL);
+}
+
 regenLink.addEventListener("click", start);
+fbLink.addEventListener("click", share);
 
 regen();

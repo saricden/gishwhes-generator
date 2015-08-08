@@ -19,7 +19,9 @@ html, body {
 }
 
 .animal {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
   transform: scale(1);
   opacity: 1;
   
